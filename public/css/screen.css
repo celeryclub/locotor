@@ -1,0 +1,33 @@
+body {
+  color: #525252;
+  font-family: "Lato", sans-serif;
+}
+h1 {
+  font-size: 3em;
+}
+a {
+  color: #E2760B;
+}
+.container {
+  margin: 0 2em;
+}
+header,
+footer {
+  text-align: center;
+}
+header {
+  color: #333;
+}
+main {
+  font-size: 1.2em;
+}
+footer {
+  font-weight: 300;
+}
+code, pre {
+  color: #015AD2;
+}
+li p,
+pre {
+  margin: 0.5em 0;
+}
