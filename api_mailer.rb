@@ -29,10 +29,10 @@ class APIMailer
 
     Mail.defaults do
       delivery_method :smtp, {
-        :user_name => ENV['SENDGRID_USERNAME'],
-        :password => ENV['SENDGRID_PASSWORD'],
-        :domain => 'locotor.com',
-        :address => 'smtp.sendgrid.net',
+        :user_name => ENV['MAILGUN_USERNAME'],
+        :password => ENV['MAILGUN_PASSWORD'],
+        :domain => 'locotor.mailgun.org',
+        :address => 'smtp.mailgun.org',
         :port => 587,
         :authentication => :plain,
         :enable_starttls_auto => true
@@ -41,7 +41,7 @@ class APIMailer
 
     mail_success = Mail.deliver do
       to email_address
-      from 'directions@locotor.com'
+      from 'directions@locotor.mailgun.org'
       body directions_message
     end
 
