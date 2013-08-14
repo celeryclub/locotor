@@ -17,8 +17,8 @@ class Locotor < Sinatra::Base
   end
 
   post "/" do
-    email_address = params["sender"]
-    text = params["stripped-text"]
+    email_address = params["from"]
+    text = params["text"]
 
     origin = text.lines.first.strip
     destination = text.lines.last.strip
