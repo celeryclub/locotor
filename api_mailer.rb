@@ -15,17 +15,19 @@ class APIMailer
     api_hash = JSON.parse(response.body)
     request_status = api_hash["status"]
 
-    directions_message = if request_status == "OK"
+    directions = if request_status == "OK"
       steps = api_hash["routes"].first["legs"].first["steps"]
       steps_with_time = steps.map do |step|
         instructions = Nokogiri::HTML(step["html_instructions"]).inner_text
-        duration = step["duration"]["text"]
+        duration = step["distance"]["text"]
         "#{instructions} (#{duration})"
       end
       steps_with_time.join("\n")
     else
       request_status
     end
+
+    chunks = directions.chars.each_slice(160).map(&:join)
 
     Mail.defaults do
       delivery_method :smtp, {
@@ -39,13 +41,15 @@ class APIMailer
       }
     end
 
-    mail_success = Mail.deliver do
-      to email_address
-      from 'directions@locotor.com'
-      body directions_message
+    deliveries = chunks.map do |chunk|
+      Mail.deliver do
+        to email_address
+        from 'directions@locotor.com'
+        body chunk.strip
+      end
     end
 
-    if mail_success
+    if deliveries.all?
       puts "Delivered directions to #{email_address}"
     else
       puts "ERROR: Unable to deliver directions to #{email_address}"
