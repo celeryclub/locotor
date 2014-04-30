@@ -1,12 +1,10 @@
 source 'https://rubygems.org'
 ruby '2.1.1'
 
-gem 'rake', '~> 10.1.0'
-
 gem 'rack-rewrite'
-gem 'sinatra', '1.4.3'
+gem 'sinatra', '1.4.5'
 
-gem 'resque', '~> 1.24.1'
+gem 'resque', '~> 1.25'
 gem 'httparty'
 gem 'nokogiri'
 gem 'mail'
