@@ -27,7 +27,7 @@ class APIMailer
       request_status
     end
 
-    chunks = directions.chars.each_slice(160).map(&:join)
+    chunks = directions.chars.each_slice(155).map(&:join)
 
     Mail.defaults do
       delivery_method :smtp, {
@@ -42,6 +42,7 @@ class APIMailer
     end
 
     deliveries = chunks.map do |chunk|
+      puts "CHUNK: #{chunk.strip}"
       Mail.deliver do
         to email_address
         from 'directions@locotor.com'
